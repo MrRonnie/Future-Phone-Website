@@ -17,11 +17,12 @@ const searchPhone = () => {
 
 }
 
-const displaySearchResult = data => {
+const displaySearchResult = (data) => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
 
-    data.forEach (phone =>{
+        const phones = data.slice(0, 20);
+        for (const phone of phones) {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -40,6 +41,6 @@ const displaySearchResult = data => {
         `;
         searchResult.appendChild(div);
 
-    })
+    }
 
 }
