@@ -52,16 +52,47 @@ const featuresData = id => {
     .then ((data) => displayPhoneDetails (data.data));
 }
 
+const others = object => {
+    if (object == undefined) {
+        return 'No results found'
+    }
+    else {
+        let othersDetails = '';
+        for (const element in object) {
+            const pairStr = element + ':' + object[element] + "  ";
+            othersDetails = othersDetails + pairStr;
+        }
+        return (othersDetails);
+    }
+}
+
+
+const sensorNames = sensors => {
+    let sensorNames = '';
+    for (const sensor of sensors) {
+        sensorNames = sensorNames + ', ' + sensor;
+    }
+    return sensorNames;
+}
+
 // Display details or features result 
 const displayPhoneDetails = (infos) =>{
     document.getElementById("details-container").innerHTML = `
     <div class="p-2 shadow p-3 bg-body rounded card h-100">
-              <img src="${infos.image}" class="card-img-top mt-3 w-50 m-auto" alt="">
+              <img src="${infos.image}" class="card-img-top mt-3 w-25 m-auto" alt="">
           <div class="card-body">
-              <h4 class="phone-name">${infos.name}</h4>
-              <p class="brand-name">${infos.brand}</p>
+             <h5 class="card-title">Phone Name: ${infos.name} </h5>
+             <p class="card-text">Brand: ${infos.brand} </p>
+             <p class="card-text">Chipset: ${infos.mainFeatures.chipSet}</p>
+             <p class="card-text">Memory: ${infos.mainFeatures.memory}</p>
+             <p class="card-text">Display Size: ${infos.mainFeatures.displaySize}</p>
+             <p class="card-text">Sensors: ${sensorNames(infos.mainFeatures.sensors)}  </p>
+             <p class="card-text">Others: ${others(infos.others)}  </p>
+             <p class="card-text">Release Date: ${infos?.releaseDate ?? 'No Release Date Found'}</p>
           </div>
          
     </div>
     `;
 }
+
+
