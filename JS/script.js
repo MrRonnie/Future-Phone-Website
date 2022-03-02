@@ -1,25 +1,43 @@
-const searchPhone = () => {
-    
-    const searchField = document.getElementById("search-box")
-    const searchText = searchField.value;
-
-    // clear data 
-    searchField.value = '';
-
-
-    // load data 
-    const url = `
-    https://openapi.programming-hero.com/api/phones?search=${searchText}
-    `;
-    fetch(url)
-    .then ((response) => response.json())
-    .then ((data) => displaySearchResult(data.data));
-
+const searchResult = document.getElementById('search-result');
+const detailsContainer = document.getElementById('details-container');
+// Error Handling 
+const error = (id, displayResult) => {
+    document.getElementById(id).style.display = displayResult;
 }
+
+document.getElementById('search-button').addEventListener('click', function () {
+    const searchText = (document.getElementById('search-box').value).toLowerCase();
+    if (document.getElementById('search-box').value == '') {
+        error('type-error', 'block')
+        error('result-error', 'none');
+        searchResult.textContent = '';
+        detailsContainer.textContent = '';
+     
+    }
+    else {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => displaySearchResult(data.data))
+        document.getElementById('search-box').value = '';
+    }
+})
+
 // Display Search Result 
 const displaySearchResult = (data) => {
-    const searchResult = document.getElementById('search-result');
-    searchResult.textContent = '';
+    if (data.length == 0) {
+        error('type-error', 'none');
+        error('result-error', 'block')
+        searchResult.textContent = '';
+        detailsContainer.textContent = '';
+        
+    }
+    else {
+        error('result-error', 'none');
+        error('type-error', 'none')
+
+        searchResult.textContent = '';
+        detailsContainer.textContent = '';
 
         const phones = data.slice(0, 20);
         for (const phone of phones) {
@@ -33,15 +51,15 @@ const displaySearchResult = (data) => {
               <p class="brand-name">${phone.brand}</p>
           </div>
           <div class="d-grid mx-auto w-75 my-3 ">
-
             <button onclick="featuresData('${phone.slug}')" type="button" class="btn btn-outline-primary fs-6  fw-bold ">See Features</button>
-
            </div>
         </div>
         `;
         searchResult.appendChild(div);
+    };
 
-    }
+    };
+
 
 }
 

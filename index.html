@@ -21,16 +21,20 @@
         <input type="text" id="search-box" class="form-control" placeholder=" What is your prefer brand !"
             aria-label="Type Food Name Here" aria-describedby="button-search" />
         <!-- search button  -->
-        <button class="btn btn-primary" type="button" id="search-button" onclick="searchPhone()">
+        <button class="btn btn-primary" type="button" id="search-button">
             Search
         </button>
     </div>
+    <!-- Display Error Messages -->
+    <h3 id="result-error" class="text-danger text-center mt-5">Opps! nothing have founed!! try again later.</h3>
+    <h3 id="type-error" class="text-danger text-center mt-5">Please type a phone brand name inside the searchbox.</h3>
+
     <!-- details or featuers card container  -->
     <div id="details-container" class="w-50 m-auto">
 
     </div>
-    <!-- Phone card container  -->
-    <div id="phone-container" class="container mt-5">
+    <!-- search result container  -->
+    <div class="container mt-5">
         <div id="search-result" class="row row-cols-1 row-cols-md-3 g-4">
 
 
