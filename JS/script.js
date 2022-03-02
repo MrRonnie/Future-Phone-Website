@@ -1,3 +1,4 @@
+// Public Variable 
 const searchResult = document.getElementById('search-result');
 const detailsContainer = document.getElementById('details-container');
 // Error Handling 
@@ -69,7 +70,7 @@ const featuresData = id => {
     .then ((responsea) => responsea.json())
     .then ((data) => displayPhoneDetails (data.data));
 }
-
+// others info function
 const others = object => {
     if (object == undefined) {
         return 'No results found'
@@ -77,14 +78,28 @@ const others = object => {
     else {
         let othersDetails = '';
         for (const element in object) {
-            const pairStr = element + ':' + object[element] + "  ";
-            othersDetails = othersDetails + pairStr;
+            const keyString = element + ':' + object[element] + "  ";
+            othersDetails = othersDetails + keyString;
         }
         return (othersDetails);
     }
 }
+// release date info function 
+const releaseDateInfo = releaseDate => {
+    if (releaseDate === '') {
+        return 'No Release Date Found !'
+    }
+    else {
+        let releaseDateInfo = '';
+        for (const release of releaseDate) {
+         
+            releaseDateInfo = releaseDateInfo + ' ' + release;
+        }
+        return (releaseDateInfo);
+    }
+}
 
-
+// sensor info function 
 const sensorNames = sensors => {
     let sensorNames = '';
     for (const sensor of sensors) {
@@ -106,7 +121,7 @@ const displayPhoneDetails = (infos) =>{
              <p class="card-text">Display Size: ${infos.mainFeatures.displaySize}</p>
              <p class="card-text">Sensors: ${sensorNames(infos.mainFeatures.sensors)}  </p>
              <p class="card-text">Others: ${others(infos.others)}  </p>
-             <p class="card-text">Release Date: ${infos?.releaseDate ?? 'No Release Date Found'}</p>
+             <p class="card-text">Release Date: ${releaseDateInfo(infos.releaseDate)}</p>
           </div>
          
     </div>
